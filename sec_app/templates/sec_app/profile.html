@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Profil</title>
+</head>
+<body style="font-family: sans-serif; padding: 30px;">
+  <h2>Profil użytkownika: {{ user.username }}</h2>
+  <p>Rola / Status pracownika (is_staff): <strong>{{ user.is_staff }}</strong></p>
+  <p><a href="/admin/">Spróbuj wejść do Panelu Admina (/admin)</a></p>
+  <p><a href="/change-role">Zmień swoją rolę (test eskalacji uprawnień)</a></p>
+  <p><a href="/dashboard">Podgląd logów i alertów</a></p>
+  <p><a href="/logout">Wyloguj</a></p>
+</body>
+</html>

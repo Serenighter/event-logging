@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Bezpieczeństwa</title>
+</head>
+<body style="font-family: sans-serif; padding: 30px; background: #f4f6f9;">
+  <h1>Dashboard Monitoringu i Bezpieczeństwa (P9)</h1>
+  <p><a href="/login">Powrót do logowania</a> | <a href="/admin">Panel Admina</a></p>
+
+  <h2>Wygenerowane Alerty</h2>
+  <table border="1" cellpadding="8" style="border-collapse: collapse; background: white; width: 100%;">
+    <tr style="background: #ddd;">
+      <th>Czas</th><th>Priorytet</th><th>Typ Alertu</th><th>Użytkownik</th><th>IP</th><th>Opis</th>
+    </tr>
+    {% for alert in alerts %}
+    <tr>
+      <td>{{ alert.timestamp }}</td>
+      <td style="color: red; font-weight: bold;">{{ alert.severity }}</td>
+      <td>{{ alert.alert_type }}</td>
+      <td>{{ alert.username }}</td>
+      <td>{{ alert.ip_address }}</td>
+      <td>{{ alert.description }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6">Brak wygenerowanych alertów.</td></tr>
+    {% endfor %}
+  </table>
+
+  <h2>Ostatnie surowe logi zdarzeń (JSON)</h2>
+  <pre style="background: #222; color: #a6e22e; padding: 15px; border-radius: 5px; overflow-x: auto;">
+{% for log in raw_logs %}{{ log }}{% empty %}Brak logów.{% endfor %}
+  </pre>
+</body>
+</html>

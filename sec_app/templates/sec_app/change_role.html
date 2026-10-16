@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Zmiana roli</title>
+</head>
+<body style="font-family: sans-serif; padding: 30px;">
+  <h2>Zmień rolę testową</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <button name="action" value="make_staff" type="submit">Nadaj status Staff (Dostęp do /admin)</button>
+    <button name="action" value="revoke_staff" type="submit">Odbierz status Staff</button>
+  </form>
+  <br><a href="/profile">Wróć do profilu</a>
+</body>
+</html>
