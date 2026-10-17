@@ -131,6 +131,12 @@ MAILERS = {
 import json
 import logging
 
+SECURITY_LOG_FILE = BASE_DIR / 'security_events.log'
+# X-Forwarded-For ufamy tylko za zaufanym reverse proxy (nagłówek jest sterowany przez klienta)
+TRUST_X_FORWARDED_FOR = False
+# Nadpisanie progów reguł detekcji, np. {'BRUTE_FORCE_ATTEMPT': {'threshold': 5}}; domyślne: sec_app/rules.py
+DETECTION_RULES = {}
+
 class JsonFormatter(logging.Formatter):
     def format(self, record):
         log_record = {
@@ -154,7 +160,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'security_events.log',
+            'filename': SECURITY_LOG_FILE,
             'formatter': 'json_formatter',
             'encoding': 'utf-8',
         },
