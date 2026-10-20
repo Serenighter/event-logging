@@ -98,9 +98,12 @@ def _brute_force(ev, history, cfg):
              and _in_window(h, ev.timestamp, p["window"]) and (reset is None or h.timestamp > reset)]
     n = len(fails) + 1
     if n >= p["threshold"]:
-        return _det(cfg, "BRUTE_FORCE_ATTEMPT", ev.username,
-                    f"Wykryto {n} nieudanych prób logowania z rzędu na konto '{ev.username}' pochodzących z IP {ev.ip} "
-                    f"w ciągu {p['window']} s.")
+        desc = (f"Wykryto {n} nieudanych prób logowania z rzędu na konto '{ev.username}' "
+                f"pochodzących z IP {ev.ip} w ciągu {p['window']} s.")
+        if "(NOT_FOUND)" in ev.username or ev.details.get("user_exists") is False:
+            desc += " Użytkownik nie istnieje w bazie (możliwe skanowanie / enumeracja kont)."
+
+        return _det(cfg, "BRUTE_FORCE_ATTEMPT", ev.username, desc)
 
 
 def _password_spraying(ev, history, cfg):
